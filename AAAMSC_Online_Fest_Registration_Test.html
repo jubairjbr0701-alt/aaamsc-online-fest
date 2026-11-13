@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10152f">
+  <title>AAAMSC Online Fest | Registration</title>
+  <style>
+    :root {
+      --ink: #f7f8ff;
+      --muted: #b9c1df;
+      --panel: rgba(19, 25, 57, .82);
+      --line: rgba(255,255,255,.14);
+      --accent: #9d7bff;
+      --accent2: #35d6c4;
+      --pink: #ff70b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      background:
+        radial-gradient(circle at 12% 15%, rgba(157,123,255,.28), transparent 30%),
+        radial-gradient(circle at 88% 22%, rgba(53,214,196,.2), transparent 28%),
+        radial-gradient(circle at 55% 100%, rgba(255,112,184,.16), transparent 35%),
+        #0b1026;
+      overflow-x: hidden;
+    }
+    .orb { position: fixed; border-radius: 50%; filter: blur(2px); opacity: .5; pointer-events: none; animation: float 9s ease-in-out infinite; }
+    .orb.one { width: 150px; height: 150px; background: #7657e8; top: 12%; left: -65px; }
+    .orb.two { width: 100px; height: 100px; background: #22bba9; right: -35px; top: 62%; animation-delay: -3s; }
+    @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-24px) } }
+    .wrap { width: min(760px, calc(100% - 28px)); margin: 0 auto; padding: 34px 0 48px; position: relative; }
+    header { text-align: center; margin-bottom: 24px; }
+    .brand {
+      display: inline-flex; align-items: center; gap: 9px; padding: 8px 14px;
+      border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.06);
+      color: #d9d2ff; font-size: .78rem; font-weight: 800; letter-spacing: .16em;
+    }
+    .spark { color: #ffd66b; font-size: 1.1rem; }
+    h1 { margin: 19px 0 8px; font-size: clamp(2.1rem, 8vw, 4rem); line-height: 1.02; letter-spacing: -.055em; }
+    h1 span { background: linear-gradient(90deg, #c4b2ff, #62e8d8, #ff9dcc); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .subtitle { color: var(--muted); margin: 0 auto; max-width: 520px; line-height: 1.6; }
+    .card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 24px;
+      padding: clamp(20px, 5vw, 34px); box-shadow: 0 24px 80px rgba(0,0,0,.35);
+      backdrop-filter: blur(18px);
+    }
+    .card-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 24px; }
+    h2 { font-size: 1.25rem; margin: 0 0 5px; }
+    .hint { color: var(--muted); font-size: .88rem; margin: 0; }
+    .pill { white-space: nowrap; border-radius: 999px; padding: 7px 11px; color: #a9fff1; background: rgba(53,214,196,.1); border: 1px solid rgba(53,214,196,.25); font-size: .72rem; font-weight: 700; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    label { display: block; margin: 0 0 8px; color: #e7eaff; font-size: .9rem; font-weight: 650; }
+    .required { color: #ff9dcc; }
+    input, select {
+      width: 100%; min-height: 49px; padding: 12px 14px; color: var(--ink);
+      border: 1px solid rgba(255,255,255,.16); border-radius: 12px; outline: none;
+      background: rgba(5,10,30,.62); font: inherit; transition: border .2s, box-shadow .2s, transform .2s;
+    }
+    input::placeholder { color: #7f89ad; }
+    select:invalid { color: #7f89ad; }
+    select option { color: #111; }
+    input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(157,123,255,.17); }
+    .choices { display: flex; gap: 10px; }
+    .choice { flex: 1; position: relative; }
+    .choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .choice span {
+      min-height: 48px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,.16); border-radius: 12px;
+      background: rgba(5,10,30,.45); color: var(--muted); cursor: pointer; transition: .2s;
+    }
+    .choice input:checked + span { color: white; border-color: var(--accent2); background: rgba(53,214,196,.13); box-shadow: inset 0 0 0 1px rgba(53,214,196,.25); }
+    .choice input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+    button {
+      width: 100%; margin-top: 24px; min-height: 54px; border: 0; border-radius: 14px;
+      color: #10132b; font: inherit; font-weight: 850; letter-spacing: .02em; cursor: pointer;
+      background: linear-gradient(100deg, #bba5ff, #63e6d5 58%, #ffacd2);
+      box-shadow: 0 10px 28px rgba(104,119,255,.2); transition: transform .2s, filter .2s;
+    }
+    button:hover { transform: translateY(-2px); filter: brightness(1.07); }
+    button:active { transform: translateY(0); }
+    button:disabled { opacity: .65; cursor: wait; }
+    .privacy { color: #9ba5c9; text-align: center; font-size: .78rem; line-height: 1.5; margin: 14px 4px 0; }
+    .footer { color: #818bad; text-align: center; font-size: .8rem; margin-top: 22px; }
+    .status { display: none; margin-top: 16px; padding: 13px 14px; border-radius: 12px; font-size: .9rem; line-height: 1.5; }
+    .status.error { display: block; color: #ffd4df; background: rgba(255,90,130,.12); border: 1px solid rgba(255,90,130,.3); }
+    .honeypot { position: absolute; left: -5000px; }
+    @media (max-width: 560px) {
+      .wrap { padding-top: 25px; }
+      .grid { grid-template-columns: 1fr; gap: 15px; }
+      .field.full { grid-column: auto; }
+      .card-head { align-items: flex-start; }
+      .pill { font-size: .65rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <div class="orb one" aria-hidden="true"></div>
+  <div class="orb two" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <header>
+      <div class="brand"><span class="spark">✦</span> AAAMSC PRESENTS <span class="spark">✦</span></div>
+      <h1>ONLINE <span>FEST</span></h1>
+      <p class="subtitle">Show your talent. Take the challenge. Be part of the celebration.<br>Complete the form below to register.</p>
+    </header>
+
+    <section class="card" aria-labelledby="form-title">
+      <div class="card-head">
+        <div>
+          <h2 id="form-title">Fest Registration</h2>
+          <p class="hint">Please enter your details carefully.</p>
+        </div>
+        <span class="pill">✦ REGISTRATION</span>
+      </div>
+
+      <!-- FormSubmit emails submissions to the organizer. The organizer must activate the
+           address using the confirmation email sent after the first test submission. -->
+      <form id="registrationForm" action="https://formsubmit.co/jbrjubair7@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New AAAMSC Online Fest Registration">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_next" value="">
+        <div class="honeypot" aria-hidden="true">
+          <label>Leave this field empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <div class="grid">
+          <div class="field full">
+            <label for="name">Full Name <span class="required">*</span></label>
+            <input id="name" name="Full Name" type="text" placeholder="Enter your full name" autocomplete="name" maxlength="100" required>
+          </div>
+
+          <div class="field">
+            <label for="class">Class <span class="required">*</span></label>
+            <input id="class" name="Class" type="text" placeholder="e.g. XI / XII" maxlength="30" required>
+          </div>
+
+          <div class="field">
+            <label for="section">Section <span class="required">*</span></label>
+            <input id="section" name="Section" type="text" placeholder="e.g. A / B" maxlength="30" required>
+          </div>
+
+          <div class="field full">
+            <label for="roll">Roll Number <span class="required">*</span></label>
+            <input id="roll" name="Roll Number" type="text" inputmode="numeric" placeholder="Enter your roll number" maxlength="30" required>
+          </div>
+
+          <div class="field">
+            <label for="competition">Competition <span class="required">*</span></label>
+            <input id="competition" name="Competition" type="text" placeholder="Enter competition name" maxlength="100" required>
+          </div>
+
+          <div class="field">
+            <label for="category">Category <span class="required">*</span></label>
+            <input id="category" name="Category" type="text" placeholder="Enter category" maxlength="100" required>
+          </div>
+
+          <div class="field">
+            <label>Are you in AAAMSC? <span class="required">*</span></label>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="AAAMSC Member" value="Yes" required><span>Yes</span></label>
+              <label class="choice"><input type="radio" name="AAAMSC Member" value="No" required><span>No</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Have you ever participated in a competition? <span class="required">*</span></label>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="Previous Participation" value="Yes" required><span>Yes</span></label>
+              <label class="choice"><input type="radio" name="Previous Participation" value="No" required><span>No</span></label>
+            </div>
+          </div>
+        </div>
+
+        <button id="submitButton" type="submit">SUBMIT REGISTRATION <span aria-hidden="true">→</span></button>
+        <div id="status" class="status" role="alert"></div>
+        <p class="privacy">Your registration details will be sent to the AAAMSC organizer for fest administration.</p>
+      </form>
+    </section>
+    <p class="footer">Organized by <strong>AAAMSC</strong> · Let your talent shine ✦</p>
+  </main>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const button = document.getElementById('submitButton');
+    const statusBox = document.getElementById('status');
+
+    form.addEventListener('submit', function (event) {
+      if (!form.reportValidity()) {
+        event.preventDefault();
+        return;
+      }
+      // Let the browser submit normally to FormSubmit. This message is informational only;
+      // the external service's response confirms whether the submission was accepted.
+      button.disabled = true;
+      button.textContent = 'SENDING…';
+      statusBox.className = 'status';
+      statusBox.textContent = '';
+    });
+  </script>
+</body>
+</html>
